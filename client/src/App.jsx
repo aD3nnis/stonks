@@ -1,25 +1,27 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BtcChart } from './BtcChart'
 import './App.css'
 
-
 function App() {
-  const [count, setCount] = useState(0)
-  const [message, setMessage] = useState(null)   // response from backend
-  const [loading, setLoading] = useState(true)   // still fetching?
-  const [error, setError] = useState(null)  // request failed?
-  
+  const [btcData, setBtcData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
   useEffect(() => {
-    fetch('/api/hello')
-      .then((res) => res.json())
-      .then((data) => {
-        setMessage(data.message)
+    fetch('/api/btc')
+      .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
+      .then(({ ok, data }) => {
+        if (!ok) {
+          setError(data?.error || data?.detail || 'Failed to load Bitcoin data')
+          setBtcData(null)
+          return
+        }
+        setBtcData({ currentPrice: data.currentPrice, candles: data.candles })
         setError(null)
       })
       .catch((err) => {
         setError(err.message || 'Failed to reach backend')
-        setMessage(null)
+        setBtcData(null)
       })
       .finally(() => setLoading(false))
   }, [])
@@ -27,33 +29,19 @@ function App() {
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
 
-  return (
-    <>
+  const price = Number(btcData.currentPrice)
+  const formattedPrice = isNaN(price)
+    ? btcData.currentPrice
+    : price.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+    return (
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Bitcoin</h1>
+        <p><strong>Price:</strong> {formattedPrice}</p>
+        <p>Last 24h: {btcData.candles.length} data points</p>
+        <BtcChart candles={btcData.candles} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {message && <p>Backend says: {message}</p>}
-    </>
-  )
+    )
 }
 
 export default App
