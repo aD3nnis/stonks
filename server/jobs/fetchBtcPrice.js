@@ -1,4 +1,4 @@
-const { getBtcPriceAndCandles } = require('../services/coingecko');
+const { getBtcPriceAndCandles } = require('../services/livecoinwatch');
 const { insertPriceHistory } = require('../db/priceHistory');
 
 async function fetchAndSaveBtcPrice() {
