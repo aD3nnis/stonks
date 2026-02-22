@@ -18,24 +18,22 @@ async function getBtcPriceAndCandles() {
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
-      const [priceRes, chartRes] = await Promise.all([
-        fetchWithTimeout(`${COINGECKO_BASE}/simple/price?ids=bitcoin&vs_currencies=usd`),
-        fetchWithTimeout(`${COINGECKO_BASE}/coins/bitcoin/market_chart?vs_currency=usd&days=1`),
-      ]);
+      const chartRes = await fetchWithTimeout(
+        `${COINGECKO_BASE}/coins/bitcoin/market_chart?vs_currency=usd&days=1`
+      );
 
-      if (!priceRes.ok || !chartRes.ok) {
-        const msg = `CoinGecko API request failed (price: ${priceRes.status}, chart: ${chartRes.status})`;
+      if (!chartRes.ok) {
+        const msg = `CoinGecko API request failed (chart: ${chartRes.status})`;
         throw new Error(msg);
       }
 
-      const priceData = await priceRes.json();
       const chartData = await chartRes.json();
+      const prices = chartData.prices || [];
 
-      if (priceData.bitcoin?.usd == null) {
+      if (prices.length === 0) {
         throw new Error('Invalid price response from CoinGecko');
       }
 
-      const prices = chartData.prices || [];
       const candles = prices.map((point, i) => {
         const time = point[0];
         const close = point[1];
@@ -49,8 +47,10 @@ async function getBtcPriceAndCandles() {
         };
       });
 
+      const currentPrice = String(prices[prices.length - 1][1]);
+
       return {
-        currentPrice: String(priceData.bitcoin.usd),
+        currentPrice,
         candles,
       };
     } catch (err) {
