@@ -24,7 +24,8 @@ async function getBtcPriceAndCandles() {
       ]);
 
       if (!priceRes.ok || !chartRes.ok) {
-        throw new Error('CoinGecko API request failed');
+        const msg = `CoinGecko API request failed (price: ${priceRes.status}, chart: ${chartRes.status})`;
+        throw new Error(msg);
       }
 
       const priceData = await priceRes.json();
@@ -54,7 +55,10 @@ async function getBtcPriceAndCandles() {
       };
     } catch (err) {
       const isLastAttempt = attempt === maxAttempts;
-      if (isLastAttempt) throw err;
+      if (isLastAttempt) {
+        console.error('CoinGecko failed after', maxAttempts, 'attempts:', err.message, err.cause || '');
+        throw err;
+      }
       await new Promise((r) => setTimeout(r, delayMs));
     }
   }
