@@ -6,9 +6,10 @@ function App() {
   const [btcData, setBtcData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const apiBase = import.meta.env.VITE_API_URL || ''
 
   useEffect(() => {
-    fetch('/api/btc')
+    fetch(`${apiBase}/api/btc`)
       .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
       .then(({ ok, data }) => {
         if (!ok) {
