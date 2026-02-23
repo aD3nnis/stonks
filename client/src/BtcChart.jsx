@@ -39,5 +39,5 @@ export function BtcChart({ candles }) {
     return () => chart.remove()
   }, [candles])
 
-  return <div ref={chartContainerRef} style={{ width: '100%', height: 400 }} />
+  return <div ref={chartContainerRef}/>
 }
