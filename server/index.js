@@ -17,7 +17,7 @@ app.get('/api/hello', (req, res) => {
 
 app.get('/api/btc', async (req, res) => {
   try {
-    const candles = await getLatestCandles(288);
+    const candles = await getLatestCandles(96);
 
     if (!candles.length) {
       // DB has no data yet; API is up but not warmed

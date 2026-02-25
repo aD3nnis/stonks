@@ -29,7 +29,7 @@ async function insertPriceHistory(rows) {
 }
 
 // Read the most recent candles from the DB
-async function getLatestCandles(limit = 288) {
+async function getLatestCandles(limit = 96) {
   const { rows } = await pool.query(
     `
       SELECT time, open, high, low, close
