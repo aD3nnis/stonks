@@ -24,14 +24,23 @@ export function BtcChart({ candles }) {
       wickDownColor: '#ef4444',
     })
 
+    const sorted = [...candles].sort((a, b) => a.time - b.time)
+
     // API returns time in ms; lightweight-charts expects Unix seconds
-    const data = candles.map((c) => ({
-      time: Math.floor(c.time / 1000),
-      open: c.open,
-      high: c.high,
-      low: c.low,
-      close: c.close,
-    }))
+    const data = []
+    let lastTimeSec = null
+    for (const c of sorted) {
+      const t = Math.floor(c.time / 1000)
+      if (lastTimeSec !== null && t <= lastTimeSec) continue
+      lastTimeSec = t
+      data.push({
+        time: t,
+        open: c.open,
+        high: c.high,
+        low: c.low,
+        close: c.close,
+      })
+    }
 
     candleSeries.setData(data)
     chart.timeScale().fitContent()
@@ -39,5 +48,5 @@ export function BtcChart({ candles }) {
     return () => chart.remove()
   }, [candles])
 
-  return <div ref={chartContainerRef}/>
+  return <div ref={chartContainerRef} />
 }
