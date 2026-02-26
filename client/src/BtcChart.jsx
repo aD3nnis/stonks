@@ -9,7 +9,7 @@ export function BtcChart({ candles }) {
     if (!chartContainerRef.current || !candles?.length) return
     const container = chartContainerRef.current
     const chart = createChart(container, {  
-      layout: { textColor: '#d1d5db', background: { type: 'solid', color: '#1f2937' } },
+      layout: { textColor: '#d1d5db', background: { type: 'solid', color: '#05111e' } },
       grid: { vertLines: { color: '#374151' }, horzLines: { color: '#374151' } },
       width: container.clientWidth,
       height: 400,

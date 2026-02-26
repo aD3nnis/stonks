@@ -49,7 +49,7 @@ function App() {
     return (
       <div>
         <Nav />
-        <div>
+        <div className="app-container">
           <h1>Bitcoin</h1>
           <p><strong>Price:</strong> {formattedPrice}</p>
           <p>Last 24h: {btcData.candles.length} data points</p>
