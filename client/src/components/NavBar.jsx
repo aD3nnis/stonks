@@ -14,10 +14,10 @@ function Nav() {
       </Link>
       <ul className="nav-menu">
         <li>
-          <Link to="/how-it-was-built">How it was built</Link>
+          <Link to="/how-it-was-built">How It Was Built</Link>
         </li>
         <li>
-          <Link to="/indicator-updates">Indicator updates</Link>
+          <Link to="/indicator-updates">Indicator Updates</Link>
         </li>
       </ul>
     </nav>

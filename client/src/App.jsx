@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import { BtcChart } from './BtcChart'
+import { Routes, Route } from 'react-router-dom'
+import HowItWasBuilt from './pages/HowItWasBuilt'
+import IndicatorUpdates from './pages/IndicatorUpdates'
 import Nav from './components/NavBar'
 import './App.css'
 
@@ -49,14 +52,20 @@ function App() {
     return (
       <div>
         <Nav />
-        <div className="app-container">
-          <h1>Bitcoin</h1>
-          <p><strong>Price:</strong> {formattedPrice}</p>
-          <p>Last 24h: {btcData.candles.length} data points</p>
-          <div className="chart-container">
-            <BtcChart candles={btcData.candles} />
-          </div>
-        </div>
+        <Routes>
+          <Route path="/" element={
+            <div className="app-container">
+              <h1>Bitcoin</h1>
+              <p><strong>Price:</strong> {formattedPrice}</p>
+              <p>Last 24h: {btcData.candles.length} data points</p>
+              <div className="chart-container">
+                <BtcChart candles={btcData.candles} />
+              </div>
+            </div>
+          } />
+          <Route path="/how-it-was-built" element={<HowItWasBuilt />} />
+          <Route path="/indicator-updates" element={<IndicatorUpdates />} />
+        </Routes>
       </div>
     )
 }
