@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BtcChart } from './BtcChart'
+import Nav from './components/NavBar'
 import './App.css'
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
   }, [])
 
   if (loading) return (
-    <div>
+    <div className="loading-container">
       <div>Loading...</div>
       <div style={{ marginTop: '0.5rem', fontSize: '1em', color: '#666' }}>
         The initial load takes about 15 seconds because I don't want to pay for hosting
@@ -38,7 +39,7 @@ function App() {
       </div>
     </div>
   )
-  if (error) return <div>Error: {error}</div>
+  if (error) return <div className="error-container">Error: {error}</div>
 
   const price = Number(btcData.currentPrice)
   const formattedPrice = isNaN(price)
@@ -47,10 +48,15 @@ function App() {
 
     return (
       <div>
-        <h1>Bitcoin</h1>
-        <p><strong>Price:</strong> {formattedPrice}</p>
-        <p>Last 24h: {btcData.candles.length} data points</p>
-        <BtcChart candles={btcData.candles} />
+        <Nav />
+        <div>
+          <h1>Bitcoin</h1>
+          <p><strong>Price:</strong> {formattedPrice}</p>
+          <p>Last 24h: {btcData.candles.length} data points</p>
+          <div className="chart-container">
+            <BtcChart candles={btcData.candles} />
+          </div>
+        </div>
       </div>
     )
 }

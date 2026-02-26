@@ -7,11 +7,11 @@ export function BtcChart({ candles }) {
 
   useEffect(() => {
     if (!chartContainerRef.current || !candles?.length) return
-
-    const chart = createChart(chartContainerRef.current, {
+    const container = chartContainerRef.current
+    const chart = createChart(container, {  
       layout: { textColor: '#d1d5db', background: { type: 'solid', color: '#1f2937' } },
       grid: { vertLines: { color: '#374151' }, horzLines: { color: '#374151' } },
-      width: chartContainerRef.current.clientWidth,
+      width: container.clientWidth,
       height: 400,
       timeScale: { timeVisible: true, secondsVisible: false },
     })
@@ -45,7 +45,18 @@ export function BtcChart({ candles }) {
     candleSeries.setData(data)
     chart.timeScale().fitContent()
 
-    return () => chart.remove()
+    
+    const resizeObserver = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect
+      chart.resize(width, 400)  // or chart.resize(width, 400) to keep fixed height
+    })
+    resizeObserver.observe(container)
+  
+
+    return () => {
+      resizeObserver.disconnect()
+      chart.remove()
+    }
   }, [candles])
 
   return <div ref={chartContainerRef} />
