@@ -7,7 +7,7 @@ async function insertPriceHistory(rows) {
   try {
     for (const row of rows) {
       await client.query(
-        `INSERT INTO price_history (time, open, high, low, close)
+        `INSERT INTO public.price_history (time, open, high, low, close)
           VALUES ($1, $2, $3, $4, $5)
           ON CONFLICT (time) DO UPDATE SET
             open  = EXCLUDED.open,
@@ -33,7 +33,7 @@ async function getLatestCandles(limit = 96) {
   const { rows } = await pool.query(
     `
       SELECT time, open, high, low, close
-      FROM price_history
+      FROM public.price_history
       ORDER BY time DESC
       LIMIT $1
     `,
