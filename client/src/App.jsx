@@ -27,7 +27,17 @@ function App() {
       .finally(() => setLoading(false))
   }, [])
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return (
+    <div>
+      <div>Loading...</div>
+      <div style={{ marginTop: '0.5rem', fontSize: '1em', color: '#666' }}>
+        The initial load takes about 15 seconds because I don't want to pay for hosting
+      </div>
+      <div style={{ marginTop: '0.2rem', fontSize: '1em', color: '#666' }}> 
+        Thank you for your patience!
+      </div>
+    </div>
+  )
   if (error) return <div>Error: {error}</div>
 
   const price = Number(btcData.currentPrice)
