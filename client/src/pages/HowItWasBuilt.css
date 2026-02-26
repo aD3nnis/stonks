@@ -1,18 +1,42 @@
 .how-it-was-built {
   max-width: 720px;
   text-align: left;
+  padding: 1.5rem;
   padding-bottom: 3rem;
+  border-radius: 12px;
 }
 
 .how-it-was-built__title {
   font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #778ba9;
+}
+
+.how-it-was-built__github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1.5rem;
-  color: rgba(255, 255, 255, 0.95);
+  padding: 0.5rem 1rem;
+  background: #05111e;
+  color: #778ba9;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid #778ba9;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.how-it-was-built__github:hover {
+  background: rgba(100, 108, 255, 0.22);
+  border-color: rgba(100, 108, 255, 0.5);
+  color: #a5b4fc;
 }
 
 .how-it-was-built__section {
-  background: rgba(5, 17, 30, 0.6);
-  border: 1px solid #374151;
+  background: #05111e;
+  border: 1px solid #778ba9;
   border-radius: 10px;
   padding: 1.25rem 1.5rem;
   margin-bottom: 1rem;
@@ -25,7 +49,7 @@
 .how-it-was-built__heading {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #646cff;
+  color: #778ba9;
   margin: 0 0 0.5rem 0;
 }
 
@@ -38,7 +62,7 @@
 
 .how-it-was-built__text code {
   background: rgba(100, 108, 255, 0.15);
-  color: #a5b4fc;
+  color: #a5bee3;
   padding: 0.15em 0.4em;
   border-radius: 4px;
   font-size: 0.9em;
@@ -49,13 +73,25 @@
     color: #213547;
   }
 
+  .how-it-was-built__github {
+    background: rgba(99, 102, 241, 0.1);
+    color: #535bf2;
+    border-color: rgba(99, 102, 241, 0.25);
+  }
+
+  .how-it-was-built__github:hover {
+    background: rgba(99, 102, 241, 0.18);
+    border-color: rgba(99, 102, 241, 0.4);
+    color: #4338ca;
+  }
+
   .how-it-was-built__section {
     background: rgba(249, 249, 249, 0.9);
     border-color: #e2e8f0;
   }
 
   .how-it-was-built__heading {
-    color: #535bf2;
+    color: #778ba9;
   }
 
   .how-it-was-built__text {
@@ -64,6 +100,6 @@
 
   .how-it-was-built__text code {
     background: rgba(99, 102, 241, 0.12);
-    color: #4338ca;
+    color: #a5bee3;
   }
 }

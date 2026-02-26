@@ -5,6 +5,14 @@ export default function HowItWasBuilt() {
     <div className="app-container">
       <div className="how-it-was-built">
         <h1 className="how-it-was-built__title">How It Was Built</h1>
+        <a
+          href="https://github.com/aD3nnis/stonks"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="how-it-was-built__github"
+        >
+          View source on GitHub
+        </a>
 
         <section className="how-it-was-built__section">
           <h2 className="how-it-was-built__heading">Frontend</h2>

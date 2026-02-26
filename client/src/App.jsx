@@ -56,8 +56,8 @@ function App() {
           <Route path="/" element={
             <div className="app-container">
               <h1>Bitcoin</h1>
-              <p><strong>Price:</strong> {formattedPrice}</p>
-              <p>Last 24h: {btcData.candles.length} data points</p>
+              <p>A real-time Bitcoin dashboard that monitors key technical signals to inform buy, sell, or hold decisions.</p>
+              <p><strong>Current Price:</strong> {formattedPrice}</p>
               <div className="chart-container">
                 <BtcChart candles={btcData.candles} />
               </div>
